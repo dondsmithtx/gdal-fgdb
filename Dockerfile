@@ -1,12 +1,13 @@
 FROM dsmithatx/gisbase-centos
 
-ARG proj6_url="https://download.osgeo.org/proj"
-ARG proj6_pkg="proj-6.3.2.zip"
-ARG proj6_dir="proj-6.3.2"
-
 ARG fgdb_url="https://github.com/Esri/file-geodatabase-api/raw/master/FileGDB_API_1.5.1"
 ARG fgdb_pkg="FileGDB_API_1_5_1-64gcc51.tar.gz"
 ARG fgdb_dir="FileGDB_API-64gcc51"
+
+ARG proj6_url="https://download.osgeo.org/proj"
+ARG proj6_pkg="proj-6.3.2.zip"
+ARG proj6_dirprefix="proj-"
+ARG proj6_version="6.3.2"
 
 ARG gdal_url="https://github.com/OSGeo/gdal/releases/download/v3.3.0/"
 ARG gdal_pkg="gdal-3.3.0.tar.gz"
@@ -20,15 +21,6 @@ ARG postgis_url="http://postgis.net/stuff"
 ARG postgis_pkg="postgis-3.2.0dev.tar.gz"
 ARG postgis_version="3.2.0"
 
-RUN echo "#################### Installing Proj6 required for gdal ####################" && \
-    cd /root && \
-    wget ${proj6_url}/${proj6_pkg} && \
-    unzip ${proj6_pkg} && \
-    cd ${proj6_dir} && \
-    ./configure && \
-    make && \
-    make install
-    
 RUN echo "#################### Installing FileGDB API for fgdb gdal driver ####################" && \
     cd /root && \
     wget ${fgdb_url}/${fgdb_pkg} && \
@@ -38,6 +30,15 @@ RUN echo "#################### Installing FileGDB API for fgdb gdal driver #####
     cp -R /root/${fgdb_dir}/include/* /usr/include && \
     echo 'include /usr/${fgdb_dir}/lib' > /etc/ld.so.conf.d/fgdb.conf
 
+RUN echo "#################### Installing Proj6 required for gdal ####################" && \
+    cd /root && \
+    wget ${proj6_url}/${proj6_pkg} && \
+    unzip ${proj6_pkg} && \
+    cd ${proj6_dirprefix}${proj6_version} && \
+    ./configure && \
+    make && \
+    make install
+    
 RUN echo "#################### Installing libiconv ####################" && \
     cd /root && \
     wget ${libiconv_url}/${libiconv_pkg} && \
