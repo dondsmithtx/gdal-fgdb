@@ -29,7 +29,7 @@ RUN echo "#################### Installing FileGDB API for fgdb gdal driver #####
     cp -R /root/${fgdb_dir} /usr && \
     cp -R /root/${fgdb_dir}/lib/* /usr/lib && \
     cp -R /root/${fgdb_dir}/include/* /usr/include && \
-    echo "include /usr/${fgdb_dir}/lib" > /etc/ld.so.conf.d/fgdb.conf
+    ldconfig
 
 RUN echo "#################### Installing Proj6 required for gdal ####################" && \
     cd /root && \
