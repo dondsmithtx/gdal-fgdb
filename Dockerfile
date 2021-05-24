@@ -1,5 +1,7 @@
 FROM dsmithatx/gisbase-centos
 
+ARG postgres_version=13
+
 ARG fgdb_url="https://github.com/Esri/file-geodatabase-api/raw/master/FileGDB_API_1.5.1"
 ARG fgdb_pkg="FileGDB_API_1_5_1-64gcc51.tar.gz"
 ARG fgdb_dir="FileGDB_API-64gcc51"
@@ -71,7 +73,7 @@ RUN echo "#################### Installing postgis ####################" && \
     tar -xvzf ${postgis_pkg} && \
     cd postgis-${postgis_version}dev && \
     cp /root/libiconv-${libiconv_version}/include/* /usr/include && \
-    ./configure --with-pgconfig=/usr/pgsql-13/bin/pg_config \
+    ./configure --with-pgconfig=/usr/pgsql-${postgres_version}/bin/pg_config \
                 --with-gdalconfig=/usr/local/bin/gdal-config \
                 --with-geosconfig=/usr/bin/geos-config \
                 --with-projdir=/usr/local/include/proj \
