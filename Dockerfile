@@ -6,7 +6,6 @@ ARG fgdb_dir="FileGDB_API-64gcc51"
 
 ARG proj6_url="https://download.osgeo.org/proj"
 ARG proj6_pkg="proj-6.3.2.zip"
-ARG proj6_dirprefix="proj-"
 ARG proj6_version="6.3.2"
 
 ARG gdal_url="https://github.com/OSGeo/gdal/releases/download/v3.3.0/"
@@ -34,7 +33,7 @@ RUN echo "#################### Installing Proj6 required for gdal ##############
     cd /root && \
     wget ${proj6_url}/${proj6_pkg} && \
     unzip ${proj6_pkg} && \
-    cd ${proj6_dirprefix}${proj6_version} && \
+    cd proj-${proj6_version} && \
     ./configure && \
     make && \
     make install
