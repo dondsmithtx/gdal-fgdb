@@ -78,7 +78,7 @@ RUN echo "#################### Installing postgis ####################" && \
                 --with-geosconfig=/usr/bin/geos-config \
                 --with-projdir=/usr/local/include/proj \
                 --with-libiconv=/usr/include \
-		        --without-protobuf && \
+	        --without-protobuf && \
     make && \
     make install
 
